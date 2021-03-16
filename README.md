@@ -38,7 +38,7 @@ const challengeTrackingChannel = pusher.subscribe('challenges-tracking')
 ## step 3
 ```
 
-//se observan eventos de cada canael
+//se observan eventos de cada canal
 postTrackingChannel.bind('post-shared', (data) => {      
     console.log(JSON.stringify(data))
     /*

@@ -9,11 +9,16 @@
       cluster: 'us2'
     })
 
+    
+    //postId example, replace for the current user
+    const postId = '5feca65a9c159f7b395fcee2'
+
     //subscribe to private channel
-    const postTrackingChannel = pusher.subscribe('post-tracking-5feca65a9c159f7b395fcee2')
+    const postTrackingChannel = pusher.subscribe(`post-tracking-${postId}`)
 
     //events emmited
     postTrackingChannel.bind('post-shared', (data) => {      
+      console.log(JSON.stringify(data))
       /*
       example response data 
       {
@@ -33,7 +38,8 @@
       */
     })
 
-    postTrackingChannel.bind('post-comment', (data) => {                  
+    postTrackingChannel.bind('post-comment', (data) => {       
+      console.log(JSON.stringify(data))           
       /*
       example response data 
       {
@@ -55,6 +61,8 @@
     })
 
     postTrackingChannel.bind('post-liked', (data) => {                
+
+      console.log(JSON.stringify(data))
       /*
       example response data 
       {
@@ -80,7 +88,7 @@
 
     //events emmited
     challengeTrackingChannel.bind('challenge-created', (data) => {          
-      
+      console.log(JSON.stringify(data))
       /*
       example response data 
       {

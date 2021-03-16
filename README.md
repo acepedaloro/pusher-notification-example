@@ -1,0 +1,117 @@
+```
+npm install pusher-js
+```
+
+```
+<!DOCTYPE html>
+<head>
+  <title>Pusher Test</title>
+  <script src="./node_modules/pusher-js/dist/web/pusher.min.js"></script>  
+  <script>
+    const pusherKey = '2f788d65fa7b3bf060c4'
+    
+    const pusher = new Pusher(pusherKey, {
+      cluster: 'us2'
+    })
+
+    
+    //postId example, replace for the current user
+    const postId = '5feca65a9c159f7b395fcee2'
+
+    //subscribe to private channel
+    const postTrackingChannel = pusher.subscribe(`post-tracking-${postId}`)
+
+    //events emmited
+    postTrackingChannel.bind('post-shared', (data) => {      
+      console.log(JSON.stringify(data))
+      /*
+      example response data 
+      {
+        "data":{
+          "post":"5feca65a9c159f7b395fcee2",
+          "user":{
+            "id":"6036cfbc8c5bf449437fd382",
+            "name":"alejandroklaaa cepeda"
+          },
+          "challenge":{
+            "id":"5feca3ee8f79032af07e97a2",
+            "name":"#GanaLoroManiaX2X",
+            "description":"gana 10 millon de pesos en bonos con #loro"
+          }
+        }
+      }
+      */
+    })
+
+    postTrackingChannel.bind('post-comment', (data) => {       
+      console.log(JSON.stringify(data))           
+      /*
+      example response data 
+      {
+        "data":{
+          "post":"5feca65a9c159f7b395fcee2",
+          "comment":"test de comentario",
+          "user":{
+            "id":"6036cfbc8c5bf449437fd382",
+            "name":"alejandroklaaa cepeda"
+          },
+          "challenge":{
+            "id":"5feca3ee8f79032af07e97a2",
+            "name":"#GanaLoroManiaX2X",
+            "description":"gana 10 millon de pesos en bonos con #loro"
+          }
+        }
+      }
+      */
+    })
+
+    postTrackingChannel.bind('post-liked', (data) => {                
+
+      console.log(JSON.stringify(data))
+      /*
+      example response data 
+      {
+        "data":{
+          "post":"5feca65a9c159f7b395fcee2","
+          user":{
+            "id":"6036cfbc8c5bf449437fd382",
+            "name":"alejandroklaaa cepeda"
+          },
+          "challenge":{
+            "id":"5feca3ee8f79032af07e97a2",
+            "name":"#GanaLoroManiaX2X",
+            "description":"gana 10 millon de pesos en bonos con #loro"
+          }
+        }
+      }
+      */
+    })
+
+
+    //subscribe to public channel
+    const challengeTrackingChannel = pusher.subscribe('challenges-tracking')
+
+    //events emmited
+    challengeTrackingChannel.bind('challenge-created', (data) => {          
+      console.log(JSON.stringify(data))
+      /*
+      example response data 
+      {
+        "data":{          
+          "challenge":{
+            "id":"5feca3ee8f79032af07e97a2",
+            "name":"#GanaLoroManiaX2X",
+            "description":"gana 10 millon de pesos en bonos con #loro"
+          }
+        }
+      }    
+      */
+    })
+
+  </script>
+</head>
+<body>
+  <h1>Pusher Test</h1>
+</body>
+
+```
